@@ -242,25 +242,25 @@ function hearts(){
       el.style.fontSize=(18+Math.random()*22)+"px";
       el.style.animationDuration=(3+Math.random()*3)+"s";
       document.body.appendChild(el);
-      el.addEventListener("animationend",()=>el.remove());
+      el.addEventListener("animationend",()=>el.remove());f
     },i*75);
   }
 }
 
 // Pre-filled photos and captions matching your custom list
 const memoryData = [
-  { img: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800", caption: "My Angle ✨" },
-  { img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800", caption: "My Cutie 😌" },
-  { img: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800", caption: "Rekka mattum irundha ava devatha 🦋" },
-  { img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800", caption: "My Child 👶" },
-  { img: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800", caption: "My Model 👑" },
-  { img: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800", caption: "My inner Child 🎀" },
-  { img: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800", caption: "My Auntieee 👓" },
-  { img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800", caption: "My Friend ❤️" },
-  { img: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800", caption: "My Thangoo ✨" },
-  { img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800", caption: "My babe 😘" },
-  { img: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800", caption: "My Sweetie 🦊" },
-  { img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800", caption: "My sunshine ☀️" }
+  { img: "https://6ad49372106919c03a913cb8.imgix.net/sandbox/12.jpeg", caption: "My Angle ✨" },
+  { img: "https://6ad49372106919c03a913cb8.imgix.net/sandbox/10.jpeg", caption: "My Cutie 😌" },
+  { img: "https://6ad49372106919c03a913cb8.imgix.net/sandbox/6.jpeg", caption: "Rekka mattum irundha ava devatha 🦋" },
+  { img: "https://6ad49372106919c03a913cb8.imgix.net/sandbox/5.jpeg", caption: "My Child 👶" },
+  { img: "https://6ad49372106919c03a913cb8.imgix.net/sandbox/8.jpeg", caption: "My Model 👑" },
+  { img: "https://6ad49372106919c03a913cb8.imgix.net/sandbox/9.jpeg", caption: "My inner Child 🎀" },
+  { img: "https://6ad49372106919c03a913cb8.imgix.net/sandbox/AR.jpeg", caption: "My Auntieee 👓" },
+  { img: "https://6ad49372106919c03a913cb8.imgix.net/sandbox/15.jpeg", caption: "My Friend ❤️" },
+  { img: "https://6ad49372106919c03a913cb8.imgix.net/sandbox/11.jpeg", caption: "My Thangoo ✨" },
+  { img: "https://6ad49372106919c03a913cb8.imgix.net/sandbox/32452.jpeg", caption: "My babe 😘" },
+  { img: "https://6ad49372106919c03a913cb8.imgix.net/sandbox/WhatsApp%20Image%202026-10-18%20at%201.44.45%20PM.jpeg", caption: "My Vera mari 🦊" },
+  { img: "https://6ad49372106919c03a913cb8.imgix.net/sandbox/asfa1134.jpeg", caption: "My sunshine ☀️" }
 ];
 
 const gallery=document.getElementById("gallery");
@@ -360,7 +360,7 @@ memoryData.forEach((dataItem,index)=>{
         }
       };
       sourceImage.src=reader.result;
-    };
+    };images
     reader.readAsDataURL(selected);
     file.value="";
   });
