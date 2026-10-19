@@ -47,6 +47,15 @@ p{line-height:1.9}
 .heart{position:fixed;bottom:-30px;pointer-events:none;animation:float 5s linear forwards;z-index:5}
 @keyframes float{to{transform:translateY(-110vh) rotate(35deg);opacity:0}}
 footer{text-align:center;padding:35px 12px 50px;color:#cbb5d9;font-size:12px}
+
+.daily-note{max-width:760px;margin:26px auto 0;text-align:center}
+.daily-note .date-pill{display:inline-block;padding:8px 14px;border:1px solid #ead09d88;border-radius:30px;color:var(--gold);font-size:12px;letter-spacing:1px;margin:8px 0 18px}
+.daily-note-content{margin-top:20px;text-align:left;animation:fadeIn .5s ease}
+.daily-note-content h3{font:600 clamp(28px,6vw,40px) "Dancing Script",cursive;color:var(--pink);text-align:center;margin:8px 0}
+.daily-note-content p{color:#f5e8fb}
+.daily-quote{padding:16px 18px;margin:18px 0;border-left:3px solid var(--gold);background:#ffffff08;border-radius:0 14px 14px 0;color:#ffe4f3;font:italic 21px/1.6 "Cormorant Garamond",serif}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
 @media(max-width:650px){section{padding:48px 0}.gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.photo-frame{height:190px}.photo-card{padding:6px}.countdown{gap:6px}.time{padding:12px 2px}}
 @media(max-width:370px){.gallery{grid-template-columns:1fr}.photo-frame{height:260px}}
 </style>
@@ -99,6 +108,29 @@ footer{text-align:center;padding:35px 12px 50px;color:#cbb5d9;font-size:12px}
         This is only the beginning of our beautiful story. 🦋
       </p>
       <button class="btn" onclick="hearts()">More love for Deepu 💕</button>
+    </div>
+  </div>
+</section>
+
+<section id="today">
+  <div class="label">A little reminder for today ♡</div>
+  <h2>Your special message, Deepu</h2>
+  <p class="intro" style="margin:0 auto 22px">
+    Every day you deserve to feel loved, appreciated, and proud of the person you are. 💜
+  </p>
+  <div class="card daily-note">
+    <div style="font-size:42px">🌷💌✨</div>
+    <div id="todayDate" class="date-pill">Loading today's date…</div>
+    <p>Whenever the day feels heavy, tap below and let your Kishorrreee remind you how special you are.</p>
+    <button id="todayMessageBtn" class="btn" type="button" onclick="showTodayMessage()">Open today's special message 💗</button>
+    <div id="todayMessageContent" class="daily-note-content" hidden aria-live="polite">
+      <h3 id="todayGreeting">For my beautiful Deepu 💜</h3>
+      <p id="todayMessage"></p>
+      <div class="daily-quote" id="todayQuote"></div>
+      <p id="todayMotivation"></p>
+      <p style="text-align:center;font-weight:500;color:var(--pink)">One more thing: please smile today, thangoo. The world is lucky to have you, and I’m luckiest because I get to love you. 🥹❤️</p>
+      <p class="signature">Always yours, Kishorrreee ♥</p>
+      <div style="text-align:center"><button class="btn secondary" type="button" onclick="hearts()">Send me some extra love 💕</button></div>
     </div>
   </div>
 </section>
@@ -224,6 +256,69 @@ function updateCountdown(){
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
+
+function updateTodayDate(){
+  const now = new Date();
+  document.getElementById("todayDate").textContent = now.toLocaleDateString("en-IN", {
+    weekday: "long", year: "numeric", month: "long", day: "numeric"
+  });
+}
+
+// A date-based message rotation: the message changes on a new calendar day.
+const dailyMessages = [
+  {
+    message: "Deepu, one of the most beautiful things about you is the way you care. You may not always notice it, but your kindness, your little expressions, and the way you make ordinary moments feel special are gifts. You don’t have to do anything extra to deserve love—you already deserve it, exactly as you are. 💗",
+    quote: "“You are allowed to grow at your own pace and still be proud of how far you’ve come.”",
+    motivation: "Today's little mission: do one thing just for yourself. Enjoy your tea, take a deep breath, listen to a song you love, and give yourself credit for all the things you handle. You’re stronger than you think, and I’ll always be cheering for you."
+  },
+  {
+    message: "My Deepu, I hope you remember that your smile is not the only beautiful thing about you. Your heart, your courage, your thoughts, and the quiet strength you carry make you so special. Even on days when you feel unsure, I see so many reasons to be proud of you. 🌷",
+    quote: "“You don’t need to have everything figured out to be doing beautifully in life.”",
+    motivation: "Take today one step at a time. You don’t need to solve everything at once. Celebrate the tiny wins, rest when you need to, and trust yourself a little more. I believe in you—even on the days you find it difficult to believe in yourself."
+  },
+  {
+    message: "Thangoo, your presence makes life softer and happier in ways you may never fully realise. I love the little things that make you you—your expressions, your way of speaking, and the happiness in our simple moments together. Never think you are ordinary to me. You are my favourite kind of magic. ✨",
+    quote: "“Be gentle with yourself; you are becoming someone wonderful every single day.”",
+    motivation: "Make room for something that makes you happy today, even if it’s small. Your dreams matter, your peace matters, and your happiness matters. Keep moving forward at your own pace. I’m proud of you, and I’ll be beside you through the good days and the difficult ones."
+  },
+  {
+    message: "My girl, you have a lovely way of making people feel close to you. I hope life gives back all the warmth you give to others. You deserve peaceful mornings, genuine laughter, exciting dreams, and a love that makes you feel safe and understood. I want to keep being that safe place for you. ❤️",
+    quote: "“Your worth is not measured by how much you get done; you matter simply because you are you.”",
+    motivation: "If today gets tiring, pause without feeling guilty. Drink some water, relax your shoulders, and take a moment for yourself. Progress can be quiet too. Keep going, Deepu—you’re doing better than you think, and tomorrow is another chance to begin again."
+  },
+  {
+    message: "Deepu kutty, I wish you could see yourself through my eyes for a moment. You’d see someone lovable, thoughtful, capable, and full of possibilities. You don’t have to be perfect or happy all the time. You can have hard days and still be amazing. I love the real you, in every mood. 🦋",
+    quote: "“Even the smallest step forward is still a step toward the life you dream of.”",
+    motivation: "Choose one little thing you want to finish today, then give yourself permission to feel proud when you do it. Don’t compare your journey with anyone else’s. Your timing is your own, and I’ll always be your biggest supporter."
+  },
+  {
+    message: "My favourite person, I hope today brings you a reason to laugh unexpectedly. You deserve happiness that feels calm, love that feels reassuring, and people who appreciate your heart. Thank you for being part of my life and for giving me so many little moments I want to keep forever. 💜",
+    quote: "“You bring your own kind of light—never underestimate what that means.”",
+    motivation: "Do something that fills your heart today: enjoy your favourite tea, step outside for a little fresh air, or take a proper break. You are allowed to rest and still be ambitious. You are allowed to dream big and take it slowly. I’m proud of you, always."
+  },
+  {
+    message: "En Deepu, unakku ellame perfect-ah irukkanum nu avasiyam illa. Sometimes tired-ah irukkalaam, confused-ah irukkalaam, or simply silent-ah irukkalaam. Whatever version of you shows up today, you are loved. Un happiness-um peace-um enakku romba mukkiyam. Naan eppovume un side-la iruppen. 🥹💕",
+    quote: "“You are growing, learning, and becoming stronger—even when you can’t see it yet.”",
+    motivation: "Innaiku konjam unakkagavum time eduthuko, thangoo. Un dreams-a nambikkaiyoda follow pannu, but un heart-ku rest venumna rest eduthuko. Nee nenaikkiradha vida capable. I’m so proud of you, and I hope you end today with a peaceful heart and a small smile."
+  }
+];
+
+function showTodayMessage(){
+  const now = new Date();
+  const dayNumber = Math.floor(new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() / 86400000);
+  const message = dailyMessages[((dayNumber % dailyMessages.length) + dailyMessages.length) % dailyMessages.length];
+  document.getElementById("todayDate").textContent = now.toLocaleDateString("en-IN", {
+    weekday: "long", year: "numeric", month: "long", day: "numeric"
+  });
+  document.getElementById("todayMessage").textContent = message.message;
+  document.getElementById("todayQuote").textContent = message.quote;
+  document.getElementById("todayMotivation").textContent = message.motivation;
+  document.getElementById("todayMessageContent").hidden = false;
+  document.getElementById("todayMessageBtn").textContent = "Today's message is open 💜";
+  hearts();
+}
+updateTodayDate();
+
 function reveal(){
   document.getElementById("revealContent").hidden = false;
   document.getElementById("revealBtn").textContent = "Surprise opened 💜";
@@ -242,7 +337,7 @@ function hearts(){
       el.style.fontSize=(18+Math.random()*22)+"px";
       el.style.animationDuration=(3+Math.random()*3)+"s";
       document.body.appendChild(el);
-      el.addEventListener("animationend",()=>el.remove());f
+      el.addEventListener("animationend",()=>el.remove());
     },i*75);
   }
 }
