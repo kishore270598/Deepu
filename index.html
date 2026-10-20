@@ -267,12 +267,6 @@ function updateTodayDate(){
 // A date-based message rotation: the message changes on a new calendar day.
 const dailyMessages = [
   {
-    message: "My Deepu, ❤️ leaving Accenture and stepping into a new chapter is a big moment. You gave so much of your time and energy to that journey, and now you deserve the space to breathe, rest, and listen to yourself. Taking a gap is not falling behind, thangoo. It can be the brave choice to slow down, recharge, and decide what you want next. You don't have to rush into the next thing just to prove anything to anyone. I'm proud of you for everything you've done, and I'll be cheering for the person you're becoming. 🌷",
-    quote: "“A new beginning doesn't need to be hurried. Rest is part of the journey, too.”",
-    motivation: "For now, give yourself permission to enjoy the little things, get proper rest, have your favourite tea, and do things that make your heart feel light. And about yesterday, when we thought your bracelet was lost and then found it—I didn't expect to cry when I met you, but I did. Maybe that little moment showed me how deeply I love you and how much the things connected to us mean to me. I can't fully explain why I cried; I just know you mean so much to me, Deepu. I love you more than I sometimes know how to put into words. Whatever your next chapter looks like, you don't have to figure it all out today. I'll be right beside you. 💜"
-  },
-
-  {
     message: "Deepu, one of the most beautiful things about you is the way you care. You may not always notice it, but your kindness, your little expressions, and the way you make ordinary moments feel special are gifts. You don’t have to do anything extra to deserve love—you already deserve it, exactly as you are. 💗",
     quote: "“You are allowed to grow at your own pace and still be proud of how far you’ve come.”",
     motivation: "Today's little mission: do one thing just for yourself. Enjoy your tea, take a deep breath, listen to a song you love, and give yourself credit for all the things you handle. You’re stronger than you think, and I’ll always be cheering for you."
@@ -461,7 +455,7 @@ memoryData.forEach((dataItem,index)=>{
         }
       };
       sourceImage.src=reader.result;
-    };
+    };images
     reader.readAsDataURL(selected);
     file.value="";
   });
