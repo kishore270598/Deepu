@@ -258,58 +258,22 @@ setInterval(updateCountdown, 1000);
 
 
 function updateTodayDate(){
-  const now = new Date();
-  document.getElementById("todayDate").textContent = now.toLocaleDateString("en-IN", {
-    weekday: "long", year: "numeric", month: "long", day: "numeric"
-  });
+  // This special note is intentionally dated 20 October 2026.
+  document.getElementById("todayDate").textContent = "Tuesday, 20 October 2026";
 }
 
-// A date-based message rotation: the message changes on a new calendar day.
+// Special message created specifically for 20 October 2026.
 const dailyMessages = [
   {
-    message: "Deepu, one of the most beautiful things about you is the way you care. You may not always notice it, but your kindness, your little expressions, and the way you make ordinary moments feel special are gifts. You don’t have to do anything extra to deserve love—you already deserve it, exactly as you are. 💗",
-    quote: "“You are allowed to grow at your own pace and still be proud of how far you’ve come.”",
-    motivation: "Today's little mission: do one thing just for yourself. Enjoy your tea, take a deep breath, listen to a song you love, and give yourself credit for all the things you handle. You’re stronger than you think, and I’ll always be cheering for you."
-  },
-  {
-    message: "My Deepu, I hope you remember that your smile is not the only beautiful thing about you. Your heart, your courage, your thoughts, and the quiet strength you carry make you so special. Even on days when you feel unsure, I see so many reasons to be proud of you. 🌷",
-    quote: "“You don’t need to have everything figured out to be doing beautifully in life.”",
-    motivation: "Take today one step at a time. You don’t need to solve everything at once. Celebrate the tiny wins, rest when you need to, and trust yourself a little more. I believe in you—even on the days you find it difficult to believe in yourself."
-  },
-  {
-    message: "Thangoo, your presence makes life softer and happier in ways you may never fully realise. I love the little things that make you you—your expressions, your way of speaking, and the happiness in our simple moments together. Never think you are ordinary to me. You are my favourite kind of magic. ✨",
-    quote: "“Be gentle with yourself; you are becoming someone wonderful every single day.”",
-    motivation: "Make room for something that makes you happy today, even if it’s small. Your dreams matter, your peace matters, and your happiness matters. Keep moving forward at your own pace. I’m proud of you, and I’ll be beside you through the good days and the difficult ones."
-  },
-  {
-    message: "My girl, you have a lovely way of making people feel close to you. I hope life gives back all the warmth you give to others. You deserve peaceful mornings, genuine laughter, exciting dreams, and a love that makes you feel safe and understood. I want to keep being that safe place for you. ❤️",
-    quote: "“Your worth is not measured by how much you get done; you matter simply because you are you.”",
-    motivation: "If today gets tiring, pause without feeling guilty. Drink some water, relax your shoulders, and take a moment for yourself. Progress can be quiet too. Keep going, Deepu—you’re doing better than you think, and tomorrow is another chance to begin again."
-  },
-  {
-    message: "Deepu kutty, I wish you could see yourself through my eyes for a moment. You’d see someone lovable, thoughtful, capable, and full of possibilities. You don’t have to be perfect or happy all the time. You can have hard days and still be amazing. I love the real you, in every mood. 🦋",
-    quote: "“Even the smallest step forward is still a step toward the life you dream of.”",
-    motivation: "Choose one little thing you want to finish today, then give yourself permission to feel proud when you do it. Don’t compare your journey with anyone else’s. Your timing is your own, and I’ll always be your biggest supporter."
-  },
-  {
-    message: "My favourite person, I hope today brings you a reason to laugh unexpectedly. You deserve happiness that feels calm, love that feels reassuring, and people who appreciate your heart. Thank you for being part of my life and for giving me so many little moments I want to keep forever. 💜",
-    quote: "“You bring your own kind of light—never underestimate what that means.”",
-    motivation: "Do something that fills your heart today: enjoy your favourite tea, step outside for a little fresh air, or take a proper break. You are allowed to rest and still be ambitious. You are allowed to dream big and take it slowly. I’m proud of you, always."
-  },
-  {
-    message: "En Deepu, unakku ellame perfect-ah irukkanum nu avasiyam illa. Sometimes tired-ah irukkalaam, confused-ah irukkalaam, or simply silent-ah irukkalaam. Whatever version of you shows up today, you are loved. Un happiness-um peace-um enakku romba mukkiyam. Naan eppovume un side-la iruppen. 🥹💕",
-    quote: "“You are growing, learning, and becoming stronger—even when you can’t see it yet.”",
-    motivation: "Innaiku konjam unakkagavum time eduthuko, thangoo. Un dreams-a nambikkaiyoda follow pannu, but un heart-ku rest venumna rest eduthuko. Nee nenaikkiradha vida capable. I’m so proud of you, and I hope you end today with a peaceful heart and a small smile."
+    message: "My Deepu, ❤️ leaving Accenture and stepping into a new chapter is a big moment. You gave so much of your time and energy to that journey, and now you deserve the space to breathe, rest, and listen to yourself. Taking a gap is not falling behind, my love. It can be the brave choice to slow down, recharge, and decide what you want next. You don't have to rush into the next thing just to prove anything to anyone. I'm proud of everything you've done, and I'll be cheering for the person you're becoming. 🌷",
+    quote: "“A new beginning doesn't need to be hurried. Rest is part of the journey, too.”",
+    motivation: "For now, give yourself permission to enjoy the little things, get proper rest, have your favourite tea, and do things that make your heart feel light. And about yesterday, when we thought your bracelet was lost and then found it—I didn't expect to cry when I met you, but I did. Maybe that little moment showed me how deeply I love you and how much the things connected to us mean to me. I can't fully explain why I cried; I just know you mean so much to me, Deepu. I love you more than I sometimes know how to put into words. Whatever your next chapter looks like, you don't have to figure it all out today. I'll be right beside you. 💜"
   }
 ];
 
 function showTodayMessage(){
-  const now = new Date();
-  const dayNumber = Math.floor(new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() / 86400000);
-  const message = dailyMessages[((dayNumber % dailyMessages.length) + dailyMessages.length) % dailyMessages.length];
-  document.getElementById("todayDate").textContent = now.toLocaleDateString("en-IN", {
-    weekday: "long", year: "numeric", month: "long", day: "numeric"
-  });
+  const message = dailyMessages[0];
+  document.getElementById("todayDate").textContent = "Tuesday, 20 October 2026";
   document.getElementById("todayMessage").textContent = message.message;
   document.getElementById("todayQuote").textContent = message.quote;
   document.getElementById("todayMotivation").textContent = message.motivation;
@@ -455,7 +419,7 @@ memoryData.forEach((dataItem,index)=>{
         }
       };
       sourceImage.src=reader.result;
-    };images
+    };
     reader.readAsDataURL(selected);
     file.value="";
   });
