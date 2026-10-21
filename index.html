@@ -53,6 +53,13 @@ footer{text-align:center;padding:35px 12px 50px;color:#cbb5d9;font-size:12px}
 .daily-note-content{margin-top:20px;text-align:left;animation:fadeIn .5s ease}
 .daily-note-content h3{font:600 clamp(28px,6vw,40px) "Dancing Script",cursive;color:var(--pink);text-align:center;margin:8px 0}
 .daily-note-content p{color:#f5e8fb}
+
+.archive-wrap{margin:22px auto 0;max-width:760px;text-align:left}
+.archive-list{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:12px}
+.archive-date{border:1px solid #c89be85c;background:#ffffff0b;color:#f5e8fb;border-radius:18px;padding:9px 13px;cursor:pointer;font:12px Poppins,sans-serif}
+.archive-date.active{background:linear-gradient(130deg,#a66bd0,#704197);border-color:#e4c5fa;color:white}
+.archive-help{text-align:center;color:#cdb6dc;font-size:12px}
+
 .daily-quote{padding:16px 18px;margin:18px 0;border-left:3px solid var(--gold);background:#ffffff08;border-radius:0 14px 14px 0;color:#ffe4f3;font:italic 21px/1.6 "Cormorant Garamond",serif}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
@@ -132,6 +139,11 @@ footer{text-align:center;padding:35px 12px 50px;color:#cbb5d9;font-size:12px}
       <p class="signature">Always yours, Kishorrreee ♥</p>
       <div style="text-align:center"><button class="btn secondary" type="button" onclick="hearts()">Send me some extra love 💕</button></div>
     </div>
+  </div>
+  <div class="archive-wrap card">
+    <h3 class="script" style="font-size:32px;color:var(--pink);text-align:center;margin:0">Our daily message diary 📖</h3>
+    <p class="archive-help">Yesterday's message will stay here, and you can revisit every saved date anytime. 💜</p>
+    <div id="messageArchive" class="archive-list" aria-label="Past daily messages"></div>
   </div>
 </section>
 
@@ -257,29 +269,72 @@ updateCountdown();
 setInterval(updateCountdown, 1000);
 
 
-function updateTodayDate(){
-  // This special note is intentionally dated 20 October 2026.
-  document.getElementById("todayDate").textContent = "Tuesday, 20 October 2026";
-}
-
-// Special message created specifically for 20 October 2026.
-const dailyMessages = [
-  {
+// Daily messages are saved by date in this archive.
+// 20 October keeps yesterday's original message; 21 October is today's new message.
+const dailyMessages = {
+  "2026-10-20": {
+    dateLabel: "Tuesday, 20 October 2026",
+    greeting: "For my beautiful Deepu 💜",
     message: "My Deepu, ❤️ leaving Accenture and stepping into a new chapter is a big moment. You gave so much of your time and energy to that journey, and now you deserve the space to breathe, rest, and listen to yourself. Taking a gap is not falling behind, my love. It can be the brave choice to slow down, recharge, and decide what you want next. You don't have to rush into the next thing just to prove anything to anyone. I'm proud of everything you've done, and I'll be cheering for the person you're becoming. 🌷",
     quote: "“A new beginning doesn't need to be hurried. Rest is part of the journey, too.”",
     motivation: "For now, give yourself permission to enjoy the little things, get proper rest, have your favourite tea, and do things that make your heart feel light. And about yesterday, when we thought your bracelet was lost and then found it—I didn't expect to cry when I met you, but I did. Maybe that little moment showed me how deeply I love you and how much the things connected to us mean to me. I can't fully explain why I cried; I just know you mean so much to me, Deepu. I love you more than I sometimes know how to put into words. Whatever your next chapter looks like, you don't have to figure it all out today. I'll be right beside you. 💜"
+  },
+  "2026-10-21": {
+    dateLabel: "Wednesday, 21 October 2026",
+    greeting: "A fresh day for my brave girl, Deepu 🌷",
+    message: "Good morning, my Deepu. ❤️ Yesterday was about closing one chapter and giving yourself permission to breathe. Today, I want you to remember that your story is still moving forward—even if you're taking a break and don't have every next step planned yet. Leaving Accenture doesn't erase what you learned, the effort you gave, or the person you've become. You carried yourself through that chapter, and you deserve to feel proud of it. You don't have to prove your worth by being busy every minute. You are enough, even on the days when all you do is rest, think, and slowly find your rhythm again. I'm proud of you, thangoo. 💜",
+    quote: "“You are allowed to pause, start again, and build a life that feels right for you.”",
+    motivation: "Today, do one small thing just for yourself—enjoy your tea, get some fresh air, listen to a song you love, or simply take a peaceful break without feeling guilty. You don't need to solve the whole future today; one gentle step is enough. And Deepu, that bracelet moment yesterday reminded me how much love can hide inside a tiny thing. When I found myself crying while meeting you, I realised again that my feelings for you are deeper than I sometimes know how to explain. You matter to me so much—not because of what you achieve, but because you're you. I'll cheer for your dreams, support your choices, and stand beside you through the uncertain bits too. Smile when you can, rest when you need to, and remember you're never facing a new chapter without my love. Always yours. 🥹❤️"
   }
-];
+};
 
-function showTodayMessage(){
-  const message = dailyMessages[0];
-  document.getElementById("todayDate").textContent = "Tuesday, 20 October 2026";
+function formatArchiveDate(isoDate) {
+  const date = new Date(isoDate + "T12:00:00");
+  return date.toLocaleDateString("en-IN", { day: "numeric", month: "short" });
+}
+
+function renderArchive(selectedDate) {
+  const archive = document.getElementById("messageArchive");
+  archive.innerHTML = "";
+  Object.keys(dailyMessages).sort().reverse().forEach(dateKey => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "archive-date" + (dateKey === selectedDate ? " active" : "");
+    button.textContent = dateKey === "2026-10-20" ? "Yesterday · " + formatArchiveDate(dateKey) :
+      dateKey === "2026-10-21" ? "Today · " + formatArchiveDate(dateKey) : formatArchiveDate(dateKey);
+    button.setAttribute("aria-pressed", dateKey === selectedDate ? "true" : "false");
+    button.addEventListener("click", () => showMessageForDate(dateKey));
+    archive.appendChild(button);
+  });
+}
+
+function showMessageForDate(dateKey) {
+  const message = dailyMessages[dateKey];
+  if (!message) return;
+  document.getElementById("todayDate").textContent = message.dateLabel;
+  document.getElementById("todayGreeting").textContent = message.greeting;
   document.getElementById("todayMessage").textContent = message.message;
   document.getElementById("todayQuote").textContent = message.quote;
   document.getElementById("todayMotivation").textContent = message.motivation;
   document.getElementById("todayMessageContent").hidden = false;
-  document.getElementById("todayMessageBtn").textContent = "Today's message is open 💜";
+  const isToday = dateKey === new Date().toLocaleDateString("en-CA");
+  document.getElementById("todayMessageBtn").textContent = isToday ? "Today's message is open 💜" : "Revisiting this day's message 💜";
+  renderArchive(dateKey);
+}
+
+function showTodayMessage() {
+  const todayKey = new Date().toLocaleDateString("en-CA");
+  // If this page is opened on a later date without a written entry yet,
+  // keep the saved diary intact and show the latest prepared message.
+  showMessageForDate(dailyMessages[todayKey] ? todayKey : "2026-10-21");
   hearts();
+}
+
+function updateTodayDate() {
+  const todayKey = new Date().toLocaleDateString("en-CA");
+  const entry = dailyMessages[todayKey] || dailyMessages["2026-10-21"];
+  document.getElementById("todayDate").textContent = entry.dateLabel;
+  renderArchive(todayKey in dailyMessages ? todayKey : "2026-10-21");
 }
 updateTodayDate();
 
