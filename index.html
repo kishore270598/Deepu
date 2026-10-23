@@ -135,7 +135,7 @@ footer{text-align:center;padding:35px 12px 50px;color:#cbb5d9;font-size:12px}
       <p id="todayMessage"></p>
       <div class="daily-quote" id="todayQuote"></div>
       <p id="todayMotivation"></p>
-      <p style="text-align:center;font-weight:500;color:var(--pink)">One more thing: please smile today, thangoo. The world is lucky to have you, and I’m luckiest because I get to love you. 🥹❤️</p>
+      <p id="dailyLoveReminder" style="text-align:center;font-weight:500;color:var(--pink)"></p>
       <p class="signature">Always yours, Kishorrreee ♥</p>
       <div style="text-align:center"><button class="btn secondary" type="button" onclick="hearts()">Send me some extra love 💕</button></div>
     </div>
@@ -286,6 +286,23 @@ const dailyMessages = {
     quote: "“You are allowed to pause, start again, and build a life that feels right for you.”",
     motivation: "Today, do one small thing just for yourself—enjoy your tea, get some fresh air, listen to a song you love, or simply take a peaceful break without feeling guilty. You don't need to solve the whole future today; one gentle step is enough. And Deepu, that bracelet moment yesterday reminded me how much love can hide inside a tiny thing. When I found myself crying while meeting you, I realised again that my feelings for you are deeper than I sometimes know how to explain. You matter to me so much—not because of what you achieve, but because you're you. I'll cheer for your dreams, support your choices, and stand beside you through the uncertain bits too. Smile when you can, rest when you need to, and remember you're never facing a new chapter without my love. Always yours. 🥹❤️"
   }
+,
+  "2026-10-22": {
+    dateLabel: "Thursday, 22 October 2026",
+    greeting: "A little reminder for you, Deepu 💜",
+    message: "Deepu, take today one step at a time. You don't need to have everything figured out to be doing well. ❤️",
+    quote: "“Small steps still move you forward.”",
+    motivation: "Rest, smile, and be kind to yourself, thangoo. I'm always cheering for you. 🌷",
+    loveReminder: "Deepu, no matter how today goes, remember that you’re my favourite reason to smile. Take care of your beautiful heart, thangoo. You deserve all the happiness in the world. 🥹❤️"
+  },
+  "2026-10-23": {
+    dateLabel: "Friday, 23 October 2026",
+    greeting: "Today is another chance, my Deepu 🌸",
+    message: "My love, I hope today brings you a little peace and a reason to smile. Never forget how special you are to me. 💗",
+    quote: "“You are growing, even on the quiet days.”",
+    motivation: "Enjoy your favourite little moments and trust yourself, Deepu. One day at a time—you've got this, and you've got my love. 💜",
+    loveReminder: "No matter what today brings, Deepu, I hope you find a little reason to smile. Your happiness matters so much to me, and I’ll always be here cheering for you, thangoo. 💗"
+  }
 };
 
 function formatArchiveDate(isoDate) {
@@ -300,8 +317,8 @@ function renderArchive(selectedDate) {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "archive-date" + (dateKey === selectedDate ? " active" : "");
-    button.textContent = dateKey === "2026-10-20" ? "Yesterday · " + formatArchiveDate(dateKey) :
-      dateKey === "2026-10-21" ? "Today · " + formatArchiveDate(dateKey) : formatArchiveDate(dateKey);
+    button.textContent = dateKey === "2026-10-22" ? "Yesterday · " + formatArchiveDate(dateKey) :
+      dateKey === "2026-10-23" ? "Today · " + formatArchiveDate(dateKey) : formatArchiveDate(dateKey);
     button.setAttribute("aria-pressed", dateKey === selectedDate ? "true" : "false");
     button.addEventListener("click", () => showMessageForDate(dateKey));
     archive.appendChild(button);
@@ -316,6 +333,7 @@ function showMessageForDate(dateKey) {
   document.getElementById("todayMessage").textContent = message.message;
   document.getElementById("todayQuote").textContent = message.quote;
   document.getElementById("todayMotivation").textContent = message.motivation;
+  document.getElementById("dailyLoveReminder").textContent = message.loveReminder || "Deepu, keep smiling whenever you can. You deserve love, peace, and happiness. 💜";
   document.getElementById("todayMessageContent").hidden = false;
   const isToday = dateKey === new Date().toLocaleDateString("en-CA");
   document.getElementById("todayMessageBtn").textContent = isToday ? "Today's message is open 💜" : "Revisiting this day's message 💜";
@@ -326,15 +344,15 @@ function showTodayMessage() {
   const todayKey = new Date().toLocaleDateString("en-CA");
   // If this page is opened on a later date without a written entry yet,
   // keep the saved diary intact and show the latest prepared message.
-  showMessageForDate(dailyMessages[todayKey] ? todayKey : "2026-10-21");
+  showMessageForDate(dailyMessages[todayKey] ? todayKey : "2026-10-23");
   hearts();
 }
 
 function updateTodayDate() {
   const todayKey = new Date().toLocaleDateString("en-CA");
-  const entry = dailyMessages[todayKey] || dailyMessages["2026-10-21"];
+  const entry = dailyMessages[todayKey] || dailyMessages["2026-10-23"];
   document.getElementById("todayDate").textContent = entry.dateLabel;
-  renderArchive(todayKey in dailyMessages ? todayKey : "2026-10-21");
+  renderArchive(todayKey in dailyMessages ? todayKey : "2026-10-23");
 }
 updateTodayDate();
 
