@@ -272,6 +272,14 @@ setInterval(updateCountdown, 1000);
 // Daily messages are saved by date in this archive.
 // 20 October keeps yesterday's original message; 21 October is today's new message.
 const dailyMessages = {
+  "2026-11-06": {
+    dateLabel: "Friday, 6 November 2026",
+    greeting: "Happy new month, my Deepu! 💜",
+    message: "Good morning, my thangoo. ❤️ November has started, and that means your birthday month is finally here! Advance happy birthday, my loveee! 🥳🎂 I hope this month brings you peace, smiles, and all the little things that make you happy. I know sometimes things won't happen the way we planned or hoped, and that's okay. Not everything has to go perfectly. We can take things as they come, understand each other, and keep moving forward.",
+    quote: "“Not every plan has to work out for life to turn out beautifully. Keep moving forward, together.”",
+    motivation: "I know I will meet you somehow, even if things don't happen exactly as we imagined. What matters most to me is that, at the end of the day, both of us are happy. That's genuinely all I want, Deepu. No pressure, no forcing things—just us finding our way, one step at a time. Enjoy your birthday month, take care of yourself, and keep that beautiful smile. I'm always wishing the best for you, thangoo. 🥹💗",
+    loveReminder: "Advance happy birthday, my birthday girl! November is your month, and I hope it treats you as gently and beautifully as you deserve. Love you, thango. ❤️"
+  },
   "2026-10-20": {
     dateLabel: "Tuesday, 20 October 2026",
     greeting: "For my beautiful Deepu 💜",
@@ -317,8 +325,12 @@ function renderArchive(selectedDate) {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "archive-date" + (dateKey === selectedDate ? " active" : "");
-    button.textContent = dateKey === "2026-10-22" ? "Yesterday · " + formatArchiveDate(dateKey) :
-      dateKey === "2026-10-23" ? "Today · " + formatArchiveDate(dateKey) : formatArchiveDate(dateKey);
+    const todayKey = new Date().toLocaleDateString("en-CA");
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yesterdayKey = yesterday.toLocaleDateString("en-CA");
+    button.textContent = dateKey === todayKey ? "Today · " + formatArchiveDate(dateKey) :
+      dateKey === yesterdayKey ? "Yesterday · " + formatArchiveDate(dateKey) : formatArchiveDate(dateKey);
     button.setAttribute("aria-pressed", dateKey === selectedDate ? "true" : "false");
     button.addEventListener("click", () => showMessageForDate(dateKey));
     archive.appendChild(button);
@@ -344,15 +356,18 @@ function showTodayMessage() {
   const todayKey = new Date().toLocaleDateString("en-CA");
   // If this page is opened on a later date without a written entry yet,
   // keep the saved diary intact and show the latest prepared message.
-  showMessageForDate(dailyMessages[todayKey] ? todayKey : "2026-10-23");
+  const latestPreparedDate = Object.keys(dailyMessages).sort().reverse()[0];
+  showMessageForDate(dailyMessages[todayKey] ? todayKey : latestPreparedDate);
   hearts();
 }
 
 function updateTodayDate() {
   const todayKey = new Date().toLocaleDateString("en-CA");
-  const entry = dailyMessages[todayKey] || dailyMessages["2026-10-23"];
+  const latestPreparedDate = Object.keys(dailyMessages).sort().reverse()[0];
+  const entry = dailyMessages[todayKey] || dailyMessages[latestPreparedDate];
   document.getElementById("todayDate").textContent = entry.dateLabel;
-  renderArchive(todayKey in dailyMessages ? todayKey : "2026-10-23");
+  const latestPreparedDate = Object.keys(dailyMessages).sort().reverse()[0];
+  renderArchive(todayKey in dailyMessages ? todayKey : latestPreparedDate);
 }
 updateTodayDate();
 
